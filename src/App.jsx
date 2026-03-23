@@ -15,10 +15,15 @@ const shakeAnimation = keyframes`
 function App() {
 
   const [display, setDisplay] = useState('0');
-  
-  const canAddOperators = useRef(true);
   const op = "-+/*"
   
+
+  useEffect(() => {
+    if (display === 'Error') {
+      const timer = setTimeout(() => setDisplay('0'), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [display]);
 
   const handleCalculate = useCallback(() =>
   {
@@ -28,18 +33,12 @@ function App() {
       try
       {
         const result = eval(prev);
-        canAddOperators.current = true;
         let finalResult = result.toString();
-        if (finalResult.length > 15) finalResult = finalResult.slice(0, 15); // منع خروج النص
+        if (finalResult.length > 15) finalResult = finalResult.slice(0, 15);
         return finalResult;
       }
       catch (error)
       {
-        setTimeout(() =>
-        {
-          setDisplay('0');
-          canAddOperators.current = true;
-        }, 1000);
         return 'Error';
       }
     });
@@ -50,12 +49,7 @@ function App() {
     {
       if (prev === 'Error') return prev;
       if (prev === 'Infinity' || prev === '-Infinity') return '0';
-      const newVal = prev.slice(0, -1) || '0';
-      if (newVal !== '0' && op.includes(newVal[newVal.length - 1])) {
-        canAddOperators.current = false;
-      } else {
-        canAddOperators.current = true;}
-      return newVal;
+      return prev.slice(0, -1) || '0';
     });
   }, [op]);
 
@@ -64,7 +58,6 @@ function App() {
   {
     setDisplay(prev => {
       if (prev === 'Error') return prev;
-      canAddOperators.current = true;
       return '0';
     });
   }, []);
@@ -73,11 +66,8 @@ function App() {
   {
     setDisplay(prev => {
       if (prev === 'Error') return prev;
-      if (!canAddOperators.current)
-      {
-        return prev.slice(0, -1) + operator;
-      }
-      canAddOperators.current = false;
+      if (op.includes(prev.slice(-1)))
+        return prev.slice(0,-1) + operator;
       return prev + operator;
     });
   }, []);
@@ -86,8 +76,7 @@ function App() {
   {
     setDisplay(prev => {
       if (prev === 'Error') return prev;
-      canAddOperators.current = true;
-      if (prev === '0')
+      if (prev === '0' || prev === '')
         return value;
       else
         return prev + value;
