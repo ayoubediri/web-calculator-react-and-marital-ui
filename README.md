@@ -27,8 +27,8 @@ A clean and responsive calculator built with **React**, **Vite**, and **Material
 ### 1) Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
+git clone https://github.com/ayoubediri/web-calculator-react-and-marital-ui.git
+cd web-calculator-react-and-marital-ui
 ```
 
 ### 2) Install dependencies
@@ -65,28 +65,3 @@ Then open the local URL shown in your terminal (usually `http://localhost:5173`)
 ├── package.json
 └── vite.config.js
 ```
-
-## Push to GitHub
-
-If you haven’t pushed yet:
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/<your-username>/<your-repo-name>.git
-git push -u origin main
-```
-
-If your repo is already connected:
-
-```bash
-git add README.md
-git commit -m "Update README"
-git push
-```
-
-## License
-
-No license file is added yet. You can add one (for example, MIT) before publishing.
