@@ -43,6 +43,13 @@ npm install
 npm run dev
 ```
 
+### Run production server
+
+```bash
+npm run build
+npm run preview
+```
+
 Then open the local URL shown in your terminal (usually `http://localhost:5173`).
 
 ## Available Scripts

@@ -32,10 +32,9 @@ function App() {
       if (prev === 'Error') return prev;
       try
       {
-        const result = eval(prev);
-        let finalResult = result.toString();
-        if (finalResult.length > 15) finalResult = finalResult.slice(0, 15);
-        return finalResult;
+        const calculateNode = new Function('return ' + prev);
+        const result = calculateNode();
+       return result.toString();
       }
       catch (error)
       {
